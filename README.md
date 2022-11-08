@@ -80,6 +80,13 @@ which will use the operating system TLS framework if available, meaning Windows
 and macOS. On Linux, it will use OpenSSL 1.1.
 
 
+## For Open SSL Error in Ubuntu or WSL
+Run the following command
+```bash
+apt install pkg-config
+sudo apt install libssl-dev
+```
+
 ## License
 
 Licensed under either of

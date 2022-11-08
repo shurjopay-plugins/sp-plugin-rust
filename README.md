@@ -1,4 +1,5 @@
 # Rust Plugin for Shurjopay
+[![MIT/Apache-2 licensed](https://img.shields.io/crates/l/reqwest.svg)](./LICENSE-APACHE)
 This repository contains rust plugin for Shurjopay
 
 The `Shurjopay` crate provides a convenient way to integrate Shurjopay payment gateway.

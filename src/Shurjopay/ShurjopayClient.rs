@@ -1,6 +1,17 @@
+//!
+//! This module is designed to do http communication in the integration of
+//! Shurjopay payment gateway service.
+//! 
+//! This module:
+//! - Automatic handles html errors
+//! - Authenticates automatically during makePayments or verifyingPayments
+//! 
+
+/// The `log` crate is included to export log for debug purpose
 extern crate log;
 use log::{debug, error, info, warn};
 
+/// The `reqwest` crate is included to make http request
 extern crate reqwest;
 use reqwest::blocking::Client;
 use reqwest::{Error, Response};

@@ -29,7 +29,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             
             sp_instance.verifyPayment();
         }
-        
     }
 
     Ok(())

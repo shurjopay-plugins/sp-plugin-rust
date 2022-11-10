@@ -14,7 +14,7 @@ use std::collections::HashMap;
 
 /// The `chrono` crate is included to calculate timeout using datetime 
 extern crate chrono;
-use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime, TimeZone, FixedOffset, Duration, Timelike};
+use chrono::{NaiveDateTime, Duration, Timelike, Utc};
 use chrono::format::{ParseError, format};
 
 /// The `serde` crate is included to serialize structure to json and deserialize json to structure 
@@ -55,20 +55,20 @@ pub struct SpAuthToken {
 /// Each element of the structure must hold a value before checking out
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SpCheckout {
-    prefix:String,
-    token:String,
-    return_url:String,
-    cancel_url:String,
-    store_id:String,
-    amount:String,
-    order_id:String,
-    currency:String,
-    customer_name:String,
-    customer_address:String,
-    customer_phone:String,
-    customer_city:String,
-    customer_post_code:String,
-    client_ip:String,
+    pub prefix:String,
+    pub token:String,
+    pub return_url:String,
+    pub cancel_url:String,
+    pub store_id:String,
+    pub amount:String,
+    pub order_id:String,
+    pub currency:String,
+    pub customer_name:String,
+    pub customer_address:String,
+    pub customer_phone:String,
+    pub customer_city:String,
+    pub customer_post_code:String,
+    pub client_ip:String,
 }
 
 
@@ -136,16 +136,16 @@ pub struct SpVerifyResponse {
 /// This structure implements `Serialize`, `Deserialize`, `Debug` and `Clone` functions
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SpConfig {
-    _POST_DEFAULT_ADDRESS: &'static str,
-    _TOKEN_END_POINT: &'static str,
-    _SECURE_PAYMENT_END_POINT: &'static str,
-    _VERIFICATION_END_POINT: &'static str,
-    _PAYMENT_STATUS_END_POINT: &'static str,
-    _SANDBOX_USERNAME: &'static str,
-    _SANDBOX_PASSWORD: &'static str,
-    _DEFAULT_RETURN_URL: String,
-    _DEFAULT_CANCEL_URL: String,
-    _DEFAULT_CLIENT_IP: String,
+    pub _POST_DEFAULT_ADDRESS: &'static str,
+    pub _TOKEN_END_POINT: &'static str,
+    pub _SECURE_PAYMENT_END_POINT: &'static str,
+    pub _VERIFICATION_END_POINT: &'static str,
+    pub _PAYMENT_STATUS_END_POINT: &'static str,
+    pub _SANDBOX_USERNAME: &'static str,
+    pub _SANDBOX_PASSWORD: &'static str,
+    pub _DEFAULT_RETURN_URL: String,
+    pub _DEFAULT_CANCEL_URL: String,
+    pub _DEFAULT_CLIENT_IP: String,
 }
 
 /// This the model user will create as a Shurjopay plugin instance
@@ -164,11 +164,11 @@ pub struct SpConfig {
 #[derive(Debug, Clone)]
 pub struct ShurjopayPlugin{
     client: Option<reqwest::blocking::Client>,
-    config: Option<SpConfig>,
-    auth_token: Option<SpAuthToken>,
-    checkout_response: Option<SpCheckoutResponse>,
-    verify_response: Option<SpVerifyResponse>,
-    check_response: Option<SpVerifyResponse>,
+    pub config: Option<SpConfig>,
+    pub auth_token: Option<SpAuthToken>,
+    pub checkout_response: Option<SpCheckoutResponse>,
+    pub verify_response: Option<SpVerifyResponse>,
+    pub check_response: Option<SpVerifyResponse>,
     pub token_create_time: Option<NaiveDateTime>,
     pub token_expire_time: Option<NaiveDateTime>,
 }
@@ -283,10 +283,48 @@ impl ShurjopayPlugin {
 impl ShurjopayPlugin{
 
     /// This function is called to check any old payment status
+    /// This function automatically authenticates if requires
     pub fn checkPayment(&mut self)-> Option<SpVerifyResponse> {
+        if let Some(_) = self.verify_auth_token()
+        {
+            return self.check_payment_id();
+        }
+        return None;
+    }
+
+    /// This function can only be called once
+    /// This function automatically authenticates if requires
+    pub fn verifyPayment(&mut self)-> Option<SpVerifyResponse> {
+        if let Some(_) = self.verify_auth_token()
+        {
+            return self.verify_payment_id();
+        }
+        return None;
+    }
+
+    /// This function automatically authenticates and commits secure checkout
+    /// It takes `SpCheckout` Struct as input
+    pub fn MakePayment(&mut self, checkout_item: SpCheckout)->Option<String> {
+        if let Some(_) = self.verify_auth_token()
+        {
+            let auth_token_val = self.auth_token.clone().unwrap();
+            let checkout_mgs = SpCheckout{
+                token: auth_token_val.token,
+                store_id: auth_token_val.store_id.to_string(),
+                ..checkout_item
+            };
+            return self.secure_ckeckout(checkout_mgs);
+        }
+        return None;
+    }
+
+    /// This function is called to check any old payment status
+    /// This function doesn't include automatic authentication
+    pub fn check_payment_id(&mut self)-> Option<SpVerifyResponse> {
         let sp_ins = self.clone();
         if let Some(spay) = sp_ins.config {
             // println!("{:?}", spay);
+
             // Checking if client is valid or not
             if let Some(client) = sp_ins.client{
                 // Constructing url, header and body
@@ -296,7 +334,7 @@ impl ShurjopayPlugin{
                 
                 // Making HTTP request
                 let response = client.post(url.as_str())
-                                .header("Content-Type", "application/json")
+                                .header(CONTENT_TYPE, "application/json")
                                 .header("Authorization", header)
                                 .body(body)
                                 .send();
@@ -323,9 +361,11 @@ impl ShurjopayPlugin{
         return None;
     }
 
+
+
     /// This function is called to verify payments only once
     /// Further verification can be done by `checkPayments` function
-    pub fn verifyPayment(&mut self)-> Option<SpVerifyResponse> {
+    pub fn verify_payment_id(&mut self)-> Option<SpVerifyResponse> {
         let sp_ins = self.clone();
         if let Some(spay) = sp_ins.config {
             // Checking if client is valid or not
@@ -338,7 +378,7 @@ impl ShurjopayPlugin{
                 
                 // Making HTTP request
                 let response = client.post(url.as_str())
-                                .header("Content-Type", "application/json")
+                                .header(CONTENT_TYPE, "application/json")
                                 .header("Authorization", header)
                                 .body(body)
                                 .send();
@@ -364,9 +404,6 @@ impl ShurjopayPlugin{
         return None;
     }
 
-    // pub fn MakePayment(&mut self, checkout_item: SpCheckout)->Option<String> {
-
-    // }
     
     /// This function sends a checkout structure to the Shurjopay server
     /// It returns `Option<checkout_url>` for the frontend
@@ -377,10 +414,12 @@ impl ShurjopayPlugin{
             if let Some(client) = sp_ins.client{
                 let url = format!("{}{}/",spay._POST_DEFAULT_ADDRESS, spay._SECURE_PAYMENT_END_POINT);
                 let body_json = serde_json::to_string(&checkout_item);
-
+                let header =format!{"{} {}", self.auth_token.clone().unwrap().token_type, self.auth_token.clone().unwrap().token };
+                
                 // Making HTTP request
                 let response = client.post(url.as_str())
-                                .header("Content-Type", "application/json")
+                                .header(CONTENT_TYPE, "application/json")
+                                .header("Authorization", header)
                                 .body(body_json.unwrap())
                                 .send();
 
@@ -406,6 +445,51 @@ impl ShurjopayPlugin{
     }
 
 
+    /// This function gets auth token if no token is available
+    /// or the existing token is expired
+    /// This function return Option<auth_token_as_string>, if it successfully retrives a auth token
+    pub fn verify_auth_token(&mut self) -> Option<String> 
+    {
+        // Check if the any previous auth token exist or not
+        let token_struct =  self.auth_token.clone();
+        // let token = 
+        match token_struct {
+            Some(auth_token) => {
+                // Cheking token expiration validity
+                if self.is_token_valid() {
+                    return Some(auth_token.token);
+                }else {
+                    // If token not valid
+                    self.auth_token = None;
+                    return self.verify_auth_token();
+                }
+            }
+            None => {
+                let token_value = self.get_auth_token();
+                return token_value
+            },
+        };
+        return None;
+    }
+
+
+    /// This function compares if the last received token is expires or not
+    pub fn is_token_valid(&mut self) -> bool {
+        // get local_time in unix timestamp
+        let current_unix_time = Utc::now().timestamp()+21600;
+        // println!("Current unix time: {:?}", current_unix_time);
+
+        // Cenverting Datetime to unix timestamp
+        let token_expires_at = self.token_expire_time.clone().unwrap().timestamp();
+        // println!("Token Expire Time: {:?}", token_expires_at);
+
+        // Coparing token expiration time with current time setting
+        if current_unix_time <= token_expires_at  {
+            return true;
+        }
+        return false;
+    }
+
     /// This function gets auth token before initiating communication with `Shurjopay server`
     /// It returns `Option<auth_token>`
     pub fn get_auth_token(&mut self) -> Option<String> 
@@ -422,7 +506,7 @@ impl ShurjopayPlugin{
 
                 // Making HTTP request
                 let response = client.post(url.as_str())
-                                .header("Content-Type", "application/json")
+                                .header(CONTENT_TYPE, "application/json")
                                 .json(&body)
                                 .send();
                 // Checking if respons is valid or not
@@ -447,17 +531,17 @@ impl ShurjopayPlugin{
     }
 
 
-    pub fn get_http_response(&mut self, url: String, header: String, body: String) -> Option<ShurjopayClient::HttpResponse> {
-        if let Some(client) = self.client.clone() {
-            let response = client.post(url.as_str())
-                                .header("Content-Type", "application/json")
-                                .json(&body)
-                                .send();
+    // pub fn get_http_response(&mut self, url: String, header: String, body: String) -> Option<ShurjopayClient::HttpResponse> {
+    //     if let Some(client) = self.client.clone() {
+    //         let response = client.post(url.as_str())
+    //                             .header("Content-Type", "application/json")
+    //                             .json(&body)
+    //                             .send();
 
-            let res =  ShurjopayClient::is_response_valid(response);
-        }
-        return None;
-    } 
+    //         let res =  ShurjopayClient::is_response_valid(response);
+    //     }
+    //     return None;
+    // } 
 
     /// This function extracts expiration time of authenticaton token
     fn set_expire_time(&mut self) {
@@ -476,28 +560,7 @@ impl ShurjopayPlugin{
         }
     }
 
-    pub fn get_dummy_checkout_mgs(&self) -> SpCheckout {
-        let sp_config = self.config.clone().unwrap();
-        let sp_auth_token = self.auth_token.clone().unwrap();
-
-        SpCheckout{
-            prefix: "sp".to_string(),
-            token: self.auth_token.clone().unwrap().token,
-            return_url: sp_config._DEFAULT_RETURN_URL,
-            cancel_url: sp_config._DEFAULT_CANCEL_URL,
-            store_id: sp_auth_token.store_id.to_string(),
-            amount:"10".to_string(),
-            order_id: "svd6asv1a".to_string(),
-            currency: "BDT".to_string(),
-            customer_name: "Shakil Anwar".to_string(),
-            customer_address: "Dhaka".to_string(),
-            customer_phone: "01521308009".to_string(),
-            customer_city: "Dhaka".to_string(),
-            customer_post_code:"1000".to_string(),
-            client_ip: sp_config._DEFAULT_CLIENT_IP,
-        }
-
-    }
+    
 }
 
 

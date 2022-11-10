@@ -1,5 +1,6 @@
 # Rust Plugin for Shurjopay
-[![MIT/Apache-2 licensed](https://img.shields.io/crates/l/reqwest.svg)](./LICENSE-APACHE)
+[![Apache-2 licensed](https://img.shields.io/crates/l/reqwest.svg)](./LICENSE-APACHE)
+
 This repository contains rust plugin for Shurjopay
 
 The `Shurjopay` crate provides a convenient way to integrate Shurjopay payment gateway.
@@ -8,6 +9,11 @@ It handles many of the things that most people need to do manually
 - Handles http request and request errors
 - JSON serialization and deserialization
 - Authentication during checkout and verification of payments
+
+To check the documentation run 
+```bash
+cargo doc --open
+```
 
 This library uses following crates which are included in `Cargo.toml` file
 
@@ -41,29 +47,26 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // setting configuration of Shurjopayplugin for sandbox
     sp_instance.set_config(());
     // getting authentication token from server
-    let  sp_auth_token = sp_instance.get_auth_token();
-    // checking out a dummy object
-    if let Some(token)= sp_auth_token {
-        if let Some(checkout_url) = sp_instance.secure_ckeckout(sp_instance.get_dummy_checkout_mgs()){
-            // opeing the returned checkout url in the default browser 
-            match open::that(checkout_url.clone()) {
-                Ok(()) => {
-                    println!("Opened '{}' successfully.", checkout_url);
-                    println!("\nPress Enter to Verify Payment after completing your payment.");
-                },
-                Err(err) => eprintln!("An error occurred when opening '{}': {}", checkout_url, err),
-            }
-            // Waiting to press enter            
-            let mut guess = String::new();
-            io::stdin()
-                .read_line(&mut guess)
-                .expect("Failed to read line");
-            
-            // Once enter is pressed the following code will be executed
-            sp_instance.verifyPayment();
+    // checking out with a dummy checkout mgs
+    if let Some(checkout_url) = sp_instance.MakePayment(get_dummy_checkout_mgs()) {
+        // opeing the returned checkout url in the default browser 
+        match open::that(checkout_url.clone()) {
+            Ok(()) => {
+                println!("Opened '{}' successfully.", checkout_url);
+                println!("\nPress Enter to Verify Payment after completing your payment.");
+            },
+            Err(err) => eprintln!("An error occurred when opening '{}': {}", checkout_url, err),
         }
+        // Waiting to press enter            
+        let mut guess = String::new();
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line");
+        
+        // Once enter is pressed the following code will be executed
+        sp_instance.verifyPayment();
     }
-
+    // }
     Ok(())
 }
 ```
@@ -90,7 +93,6 @@ sudo apt install libssl-dev
 
 ## License
 
-Licensed under either of
+Licensed under:
 
 - Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://apache.org/licenses/LICENSE-2.0)
-- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)

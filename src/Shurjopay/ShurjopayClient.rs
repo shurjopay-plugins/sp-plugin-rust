@@ -25,14 +25,6 @@ pub struct HttpResponse{
 
 
 
-
-fn construct_headers() -> HeaderMap {
-    let mut headers = HeaderMap::new();
-    headers.insert(USER_AGENT, HeaderValue::from_static("reqwest"));
-    headers.insert(CONTENT_TYPE, HeaderValue::from_static("image/png"));
-    headers
-}
-
 pub fn is_response_valid(res: Result<reqwest::blocking::Response, reqwest::Error>) -> Option<HttpResponse>
 {
 

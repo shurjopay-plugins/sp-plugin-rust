@@ -17,18 +17,8 @@
 //! 
 //! [shurjopay]: crate::Shurjopay
 
-pub mod Shurjopay;
-use Shurjopay::ShurjopayPlugin;
+pub mod shurjopay;
+pub mod shurjopay_client;
 
 
 
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    
-    #[test]
-    fn exploration() {
-        assert_eq!(2 + 2, 4);
-    }
-}

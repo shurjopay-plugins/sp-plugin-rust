@@ -67,7 +67,7 @@ sp_instance.set_config_from_env_file();
 ```
 in this way you need to configure .env file in this way.
 
-*** keep the .toml and .evn file in the same directiory *** 
+*** keep the .toml and .env file in the same directiory *** 
 
 ```
 // .env
@@ -87,15 +87,15 @@ DEFAULT_CLIENT_IP="192.168.0.99"
 * option2: Configure plugin using this function
 ```
 sp_instance.set_all_config(
-        "sp_sandbox".to_string(),
+        "sp_sandbox".to_string(),                               
         "pyyk97hu&6u6".to_string(),
         "https://sandbox.shurjopayment.com".to_string(),
         "/api/get_token".to_string(),
         "/api/secret-pay".to_string(),
         "/api/verification".to_string(),
         "/api/payment-status".to_string(),
-        "https://www.sandbox.shurjopayment.com/response".to_string(),
-        "https://www.sandbox.shurjopayment.com/response".to_string(),
+        "https://sandbox.shurjopayment.com/response".to_string(),
+        "https://sandbox.shurjopayment.com/response".to_string(),
         "192.168.0.99".to_string(),);
 ```
 
@@ -104,14 +104,14 @@ sp_instance.set_all_config(
 ### step:5 To intiate make payment fisrt you need configure payment request object using the following function and pass the object into MakePayment() function
 ```
 let payment_req_obj = sp_instance.make_payment_request_object(
-    "786".to_string(),
-    "abc123".to_string(),
-    "BDT".to_string(),
-    "Mahmudul Islam".to_string(),
-    "Dhaka".to_string(),
-    "01811177722".to_string(),
-    "Dhaka".to_string(),
-    "1203".to_string(),
+    "786".to_string(),              // amount
+    "abc123".to_string(),           // order_id
+    "BDT".to_string(),              // currency
+    "Mahmudul Islam".to_string(),   // customer_name
+    "Dhaka".to_string(),            // customer_address
+    "01811177722".to_string(),      // customer_phone
+    "Dhaka".to_string(),            // customer_city
+    "1203".to_string(),             // customer_post_code
     );
 ```
 
@@ -139,6 +139,12 @@ if response.is_some()
 }
 ```
 
+## Sample Example
+you can download a example from the below repository for better understanding
+
+```
+https://github.com/shurjopay-plugins/sp-plugin-usage-examples
+```
 
 ## License
 

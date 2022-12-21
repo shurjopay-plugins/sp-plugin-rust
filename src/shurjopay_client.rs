@@ -9,13 +9,14 @@
 
 /// The `log` crate is included to export log for debug purpose
 extern crate log;
-use log::{debug, error, info, warn};
+// use log::{debug, error, info, warn};
+use log::info;
 
 /// The `reqwest` crate is included to make http request
 extern crate reqwest;
-use reqwest::blocking::Client;
-use reqwest::{Error, Response};
-use reqwest::header::{HeaderMap, HeaderValue, USER_AGENT, CONTENT_TYPE};
+// use reqwest::blocking::Client;
+// use reqwest::{Error, Response};
+// use reqwest::header::{HeaderMap, HeaderValue, USER_AGENT, CONTENT_TYPE};
 
 #[derive(Debug)]
 pub struct HttpResponse{
@@ -33,7 +34,7 @@ pub fn is_response_valid(res: Result<reqwest::blocking::Response, reqwest::Error
             info!("{:?}", "URL is valid");
             let status = res.unwrap();
             let status_code = status.status();
-            println!("{:?}", status_code);
+            // println!("{:?}", status_code);
             let body = status.text();
             // println!("{:?}", body);
 
@@ -44,6 +45,8 @@ pub fn is_response_valid(res: Result<reqwest::blocking::Response, reqwest::Error
                         http_code: status_code.as_u16(),
                         http_body: mgs_body,
                     };
+                    // print!("resbody_string: ");
+                    // println!("{:?}",resbody);
                     return Some(resbody);
                 },
                 Err(mgs_body2) => {
@@ -55,7 +58,7 @@ pub fn is_response_valid(res: Result<reqwest::blocking::Response, reqwest::Error
                 },
             }
         },
-        Err(error) =>   {
+        Err(_error) =>   {
             return None;
         },
     };

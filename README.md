@@ -35,7 +35,7 @@ sp-plugin-rust-test = "0.1.0"
 
 
 
-# Shurjopay-Rust-Plugin
+# How to use Shurjopay-Rust-Plugin
 #### To integrate the shurjoPay Payment Gateway in your Rust project do the following tasks sequentially.
 
 ### step:1  Cargo.toml file Configuration

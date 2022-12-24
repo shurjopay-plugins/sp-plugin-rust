@@ -22,7 +22,6 @@ mod tests {
         let sp_pass = sp_instance.config.clone().unwrap().sp_pass;
         let default_return_url = sp_instance.config.clone().unwrap().default_return_url;
         let default_cancel_url = sp_instance.config.clone().unwrap().default_cancel_url;
-        let default_client_ip = sp_instance.config.clone().unwrap().default_client_ip;
         
         assert_str_eq!(post_default_address,"https://sandbox.shurjopayment.com".to_string());
         assert_str_eq!(token_end_point,"/api/get_token".to_string());
@@ -33,7 +32,6 @@ mod tests {
         assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
         assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());
         assert_str_eq!(default_cancel_url,"https://sandbox.shurjopayment.com/response".to_string());
-        assert_str_eq!(default_client_ip,"192.168.0.99".to_string());
        
 
     }
@@ -56,7 +54,7 @@ mod tests {
         "/api/payment-status".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
-        "192.168.0.99".to_string(),);
+        );
 
 
          let post_default_address = sp_instance.config.clone().unwrap().post_default_address;
@@ -68,7 +66,7 @@ mod tests {
          let sp_pass = sp_instance.config.clone().unwrap().sp_pass;
          let default_return_url = sp_instance.config.clone().unwrap().default_return_url;
          let default_cancel_url = sp_instance.config.clone().unwrap().default_cancel_url;
-         let default_client_ip = sp_instance.config.clone().unwrap().default_client_ip;
+
          
          assert_str_eq!(post_default_address,"https://sandbox.shurjopayment.com".to_string());
          assert_str_eq!(token_end_point,"/api/get_token".to_string());
@@ -79,7 +77,6 @@ mod tests {
          assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
          assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());
          assert_str_eq!(default_cancel_url,"https://sandbox.shurjopayment.com/response".to_string());
-         assert_str_eq!(default_client_ip,"192.168.0.99".to_string());
         
  
      }
@@ -96,7 +93,7 @@ mod tests {
             "786".to_string(),
             "abc123".to_string(),
             "BDT".to_string(),
-            "Shakil Anwar".to_string(),
+            "Mahmudul Islam".to_string(),
             "Dhaka".to_string(),
             "01811177722".to_string(),
             "Dhaka".to_string(),
@@ -135,6 +132,9 @@ mod tests {
         }
 
      }
+
+
+
 
     
 }

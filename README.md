@@ -5,7 +5,7 @@
 [![Crate](https://img.shields.io/crates/v/rand.svg)]()
 [![Book](https://img.shields.io/badge/book-master-yellow.svg)]()
 [![API](https://img.shields.io/badge/api-master-yellow.svg)]()
-[![API](https://docs.rs/rand/badge.svg)](https://docs.rs/rand)
+[![API](https://docs.rs/rand/badge.svg)]()
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)]()
 
 
@@ -96,7 +96,7 @@ sp_instance.set_all_config(
         "/api/payment-status".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
-        "192.168.0.99".to_string(),);
+        );
 ```
 
 

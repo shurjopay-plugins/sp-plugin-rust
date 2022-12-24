@@ -31,8 +31,8 @@ mod tests {
         assert_str_eq!(payment_status_end_point,"/api/payment-status".to_string());
         assert_str_eq!(sp_user,"sp_sandbox".to_string());
         assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
-        assert_str_eq!(default_return_url,"https://www.sandbox.shurjopayment.com/response".to_string());
-        assert_str_eq!(default_cancel_url,"https://www.sandbox.shurjopayment.com/response".to_string());
+        assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());
+        assert_str_eq!(default_cancel_url,"https://sandbox.shurjopayment.com/response".to_string());
         assert_str_eq!(default_client_ip,"192.168.0.99".to_string());
        
 
@@ -54,8 +54,8 @@ mod tests {
         "/api/secret-pay".to_string(),
         "/api/verification".to_string(),
         "/api/payment-status".to_string(),
-        "https://www.sandbox.shurjopayment.com/response".to_string(),
-        "https://www.sandbox.shurjopayment.com/response".to_string(),
+        "https://sandbox.shurjopayment.com/response".to_string(),
+        "https://sandbox.shurjopayment.com/response".to_string(),
         "192.168.0.99".to_string(),);
 
 
@@ -77,8 +77,8 @@ mod tests {
          assert_str_eq!(payment_status_end_point,"/api/payment-status".to_string());
          assert_str_eq!(sp_user,"sp_sandbox".to_string());
          assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
-         assert_str_eq!(default_return_url,"https://www.sandbox.shurjopayment.com/response".to_string());
-         assert_str_eq!(default_cancel_url,"https://www.sandbox.shurjopayment.com/response".to_string());
+         assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());
+         assert_str_eq!(default_cancel_url,"https://sandbox.shurjopayment.com/response".to_string());
          assert_str_eq!(default_client_ip,"192.168.0.99".to_string());
         
  

@@ -42,15 +42,12 @@ sp-plugin-rust-test = "0.1.0"
 
 ```toml
 [dependencies]
-sp-plugin-rust-test = "0.1.0"
-open = "3.0.3"
+sp-plugin-rust = "0.1.0"
 ```
 
 ### step:2  Import Crate into your project
 ```
 use sp_plugin_rust_test::Shurjopay::ShurjopayPlugin;
-use open;
-use std::io;
 ```
 ### step:3  creating a new instance of Shurjopayplugin
 ```
@@ -101,7 +98,7 @@ sp_instance.set_all_config(
 
 
 ## Make Payment
-### step:5 To intiate make payment fisrt you need configure payment request object using the following function and pass the object into MakePayment() function
+### step:5 To intiate make payment fisrt you need configure payment request object using the following function and pass the object into make_payment_no_auto_redirect() function
 ```
 let payment_req_obj = sp_instance.make_payment_request_object(
     "786".to_string(),              // amount
@@ -117,21 +114,14 @@ let payment_req_obj = sp_instance.make_payment_request_object(
 
 
 ```
-if let Some(checkout_url) = sp_instance.MakePayment(payment_req_obj) 
-{
-		// opeing the returned checkout url in the default browser 
-		match open::that(checkout_url.clone()) {
-				Ok(()) => {
-				},
-				Err(err) => eprintln!("An error occurred when opening '{}': {}", checkout_url, err),
-		}
+let checkout_url = sp_instance.make_payment(payment_req_obj) 
 ```
 
 
 ## Verify Payment
 ### step:6 to verify payment you need use this function
 ```
-let response = sp_instance.verifyPayment(Some("sp63935da67dfd3".to_string()));
+let response = sp_instance.verify_payment(Some("sp63935da67dfd3".to_string()));
 println!("verify Payment Response:  {:?}",response);
 if response.is_some()
 {

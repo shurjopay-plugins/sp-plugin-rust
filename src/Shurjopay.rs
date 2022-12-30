@@ -4,17 +4,17 @@
 //! 
 //! Features:
 //! - Automatic handles html errors 
-//! - Authenticates automatically during makePayments or verifyingPayments
+//! - Authenticates automatically during make_payments or verifyingPayments
 //! 
 
 #![allow(dead_code, unused_variables, non_snake_case, non_camel_case_types)]
 
 /// Standard library to save `key` and `value` as Hashmap
-extern crate std;
+// extern crate std;
 use std::collections::HashMap;
 
 /// The `chrono` crate is included to calculate timeout using datetime 
-extern crate chrono;
+// extern crate chrono;
 use chrono::{NaiveDateTime, Duration, Timelike, Utc};
 // use chrono::format::{ParseError, format};
 
@@ -22,7 +22,7 @@ use chrono::{NaiveDateTime, Duration, Timelike, Utc};
 use dotenv::dotenv;
 
 /// The `serde` crate is included to serialize structure to json and deserialize json to structure 
-extern crate serde;
+// extern crate serde;
 use serde::{Deserialize, Serialize};
 // use serde_json::{Result, to_string};
 use serde_json:: Result;
@@ -32,15 +32,17 @@ use serde_json:: Result;
 // use log::{debug, error, info, warn};
 
 /// The `reqwest` crate is included to make http request
-extern crate reqwest;
-// use reqwest::blocking::Client;
+// extern crate reqwest;
+use reqwest::blocking::Client;
 // use reqwest::Error;
 // use reqwest::header::{HeaderMap, HeaderValue, USER_AGENT, CONTENT_TYPE};
-use reqwest::header::CONTENT_TYPE;
+use reqwest::header:: CONTENT_TYPE;
 
 /// This module handles http request verifications
 use super::shurjopay_client;//::{HttpResponse,is_response_valid};
 
+// to redirect to payment link
+// use webbrowser;
 
 /// Shurjopay token authorization data structure
 /// This structure implements `Serialize`, `Deserialize`, `Debug` and `Clone` functions
@@ -231,7 +233,7 @@ impl Default for SpConfig
 /// 
 #[derive(Debug, Clone)]
 pub struct ShurjopayPlugin{
-    client: Option<reqwest::blocking::Client>,
+    client: Option<Client>,
     pub config: Option<SpConfig>,
     pub auth_token: Option<SpAuthToken>,
     pub checkout_response: Option<SpCheckoutResponse>,
@@ -252,7 +254,7 @@ impl ShurjopayPlugin {
     /// This is a constructor to initiate `null` instance of `ShurjopayPlugin`
     /// returns `ShurjopayPlugin`
     pub fn new() -> Self {
-        let http_client = reqwest::blocking::Client::new();
+        let http_client = Client::new();
         ShurjopayPlugin{            
             client : Some(http_client),
             config : None,
@@ -410,7 +412,7 @@ impl ShurjopayPlugin{
 
     /// This function can only be called once
     /// This function automatically authenticates if requires
-    pub fn verifyPayment(&mut self, order_id: Option<String>)-> Option<SpVerifyResponse> {
+    pub fn verify_payment(&mut self, order_id: Option<String>)-> Option<SpVerifyResponse> {
         if let Some(_) = self.verify_auth_token()
         {
             if order_id.is_some()
@@ -428,8 +430,22 @@ impl ShurjopayPlugin{
     }
 
     /// This function automatically authenticates and commits secure checkout
+    /// Automatic redirect to payment link
     /// It takes `SpCheckout` Struct as input
-    pub fn MakePayment(&mut self, checkout_item: SpCheckout)->Option<String> {
+    /// return checkout_url
+    pub fn make_payment(&mut self, checkout_item: SpCheckout)->Option<String> {
+        let checkout_url = self.make_payment_no_auto_redirect(checkout_item);
+
+        if webbrowser::open(checkout_url.clone().unwrap().as_str()).is_ok() {
+            println!("Opened '{}' successfully.", checkout_url.clone().unwrap());
+        }
+        return checkout_url.clone();
+    }
+
+    /// This function automatically authenticates and commits secure checkout
+    /// It takes `SpCheckout` Struct as input
+    /// return checkout_url
+    pub fn make_payment_no_auto_redirect(&mut self, checkout_item: SpCheckout)->Option<String> {
         if let Some(_) = self.verify_auth_token()
         {
             let auth_token_val = self.auth_token.clone().unwrap();

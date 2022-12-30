@@ -67,17 +67,16 @@ in this way you need to configure .env file in this way.
 *** keep the .toml and .env file in the same directiory *** 
 
 ```
-// .env
+# .env
+SP_USER="sp_sandbox"
+SP_PASS="pyyk97hu&6u6"
 POST_DEFAULT_ADDRESS="https://sandbox.shurjopayment.com"
 TOKEN_END_POINT="/api/get_token"
 SECURE_PAYMENT_END_POINT="/api/secret-pay"
 VERIFICATION_END_POINT="/api/verification"
 PAYMENT_STATUS_END_POINT="/api/payment-status"
-SP_USER="sp_sandbox"
-SP_PASS="pyyk97hu&6u6"
 DEFAULT_RETURN_URL="https://sandbox.shurjopayment.com/response"
 DEFAULT_CANCEL_URL="https://sandbox.shurjopayment.com/response"
-DEFAULT_CLIENT_IP="192.168.0.99"
 ```
 
 

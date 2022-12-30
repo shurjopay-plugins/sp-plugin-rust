@@ -9,7 +9,8 @@
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)]()
 
 
-# Shurjopaypayment gateway Rust Crate
+# Shurjopay Rust Crate
+Official shurjoPay Rust Crate (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
 
 It handles many of the things that most people need to do manually
 
@@ -23,19 +24,12 @@ It handles many of the things that most people need to do manually
 > 📝 **NOTE** For shurjoPay live engine integration's all necessary credential will be given to merchant after subscription completed on shurjoPay gateway.
 
 
-## Usage
+## Audience
 
-Add this to your `Cargo.toml`:
+This document is intended for the developers and technical personnel of merchants and service providers who want to integrate the shurjoPay online payment gateway using python.
 
-```toml
-[dependencies]
-sp-plugin-rust-test = "0.1.0"
-```
+# How to use this shurjoPay Plugin
 
-
-
-
-# How to use Shurjopay-Rust-Plugin
 #### To integrate the shurjoPay Payment Gateway in your Rust project do the following tasks sequentially.
 
 ### step:1  Cargo.toml file Configuration
@@ -136,10 +130,6 @@ https://github.com/shurjopay-plugins/sp-plugin-usage-examples
 ```
 
 ## License
-
-Licensed under:
-
-- Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://apache.org/licenses/LICENSE-2.0)
-
-### Who do I talk to? ###
-	For any technical assistance please contact to: https://shurjopay.com.bd/#contacts
+This code is under the [MIT open source License](LICENSE).
+#### Please [contact](https://shurjopay.com.bd/#contacts) with shurjoPay team for more detail.
+### Copyright ©️2022 [ShurjoMukhi Limited](https://shurjopay.com.bd/)

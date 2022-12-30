@@ -3,7 +3,7 @@ mod tests {
 
     use sp_plugin_rust_test::shurjopay::ShurjopayPlugin;
     use assert_str::assert_str_eq;
-    
+    use webbrowser;
 
     #[test]
     fn set_config_from_env_file_test() {
@@ -101,17 +101,37 @@ mod tests {
             );
         
 
-        if let Some(checkout_url) = sp_instance.MakePayment(payment_req_obj) {
-
-            // opeing the returned checkout url in the default browser 
-            match open::that(checkout_url.clone()) {
-                Ok(()) => {
-                    // println!("Opened '{}' successfully.", checkout_url);
-                    // println!("\nPress Enter to Verify Payment after completing your payment.");
-                },
-                Err(err) => eprintln!("An error occurred when opening '{}': {}", checkout_url, err),
+        if let Some(checkout_url) = sp_instance.make_payment_no_auto_redirect(payment_req_obj) {
+            
+            if webbrowser::open(checkout_url.clone().as_str()).is_ok() {
+                println!("Opened '{}' successfully.", checkout_url.clone())
+            }
+            else {
+                println!("An error occurred when opening {}", checkout_url);
             }
         }
+    }
+
+
+    #[test]
+    fn make_payment_auto_redirect_test()
+     {
+        let mut sp_instance = ShurjopayPlugin::new();
+        sp_instance.set_config_from_env_file();
+
+        let payment_req_obj = sp_instance.make_payment_request_object(
+            "1000".to_string(),
+            "unyhl123".to_string(),
+            "BDT".to_string(),
+            "Mahmudul Islam".to_string(),
+            "Dhaka".to_string(),
+            "01811177722".to_string(),
+            "Dhaka".to_string(),
+            "1203".to_string(),
+            );
+        
+
+        sp_instance.make_payment(payment_req_obj);
 
     }
 
@@ -121,20 +141,15 @@ mod tests {
         let mut sp_instance = ShurjopayPlugin::new();
         sp_instance.set_default_config();
 
-        let response = sp_instance.verifyPayment(Some("random_oder_id_123".to_string()));
+        let response = sp_instance.verify_payment(Some("random_oder_id_123".to_string()));
             // print!("verify Payment Response: ");
             // println!("{:?}",response);
         if response.is_some()
         {
             assert_str_eq!(response.clone().unwrap().sp_message.unwrap(),"Please check your order id".to_string());
             assert_eq!(response.clone().unwrap().sp_code.unwrap(),1011);
-
         }
 
-     }
-
-
-
-
+    }
     
 }

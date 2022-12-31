@@ -14,20 +14,12 @@ mod tests {
         // setting configuration of Shurjopayplugin for sandbox
         sp_instance.set_config_from_env_file();
         let post_default_address = sp_instance.config.clone().unwrap().post_default_address;
-        let token_end_point = sp_instance.config.clone().unwrap().token_end_point;
-        let secure_payment_end_point = sp_instance.config.clone().unwrap().secure_payment_end_point;
-        let verification_end_point = sp_instance.config.clone().unwrap().verification_end_point;
-        let payment_status_end_point = sp_instance.config.clone().unwrap().payment_status_end_point;
         let sp_user = sp_instance.config.clone().unwrap().sp_user;
         let sp_pass = sp_instance.config.clone().unwrap().sp_pass;
         let default_return_url = sp_instance.config.clone().unwrap().default_return_url;
         let default_cancel_url = sp_instance.config.clone().unwrap().default_cancel_url;
         
         assert_str_eq!(post_default_address,"https://sandbox.shurjopayment.com".to_string());
-        assert_str_eq!(token_end_point,"/api/get_token".to_string());
-        assert_str_eq!(secure_payment_end_point,"/api/secret-pay".to_string());
-        assert_str_eq!(verification_end_point,"/api/verification".to_string());
-        assert_str_eq!(payment_status_end_point,"/api/payment-status".to_string());
         assert_str_eq!(sp_user,"sp_sandbox".to_string());
         assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
         assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());
@@ -48,20 +40,12 @@ mod tests {
         "sp_sandbox".to_string(),
         "pyyk97hu&6u6".to_string(),
         "https://sandbox.shurjopayment.com".to_string(),
-        "/api/get_token".to_string(),
-        "/api/secret-pay".to_string(),
-        "/api/verification".to_string(),
-        "/api/payment-status".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
         "https://sandbox.shurjopayment.com/response".to_string(),
         );
 
 
          let post_default_address = sp_instance.config.clone().unwrap().post_default_address;
-         let token_end_point = sp_instance.config.clone().unwrap().token_end_point;
-         let secure_payment_end_point = sp_instance.config.clone().unwrap().secure_payment_end_point;
-         let verification_end_point = sp_instance.config.clone().unwrap().verification_end_point;
-         let payment_status_end_point = sp_instance.config.clone().unwrap().payment_status_end_point;
          let sp_user = sp_instance.config.clone().unwrap().sp_user;
          let sp_pass = sp_instance.config.clone().unwrap().sp_pass;
          let default_return_url = sp_instance.config.clone().unwrap().default_return_url;
@@ -69,10 +53,6 @@ mod tests {
 
          
          assert_str_eq!(post_default_address,"https://sandbox.shurjopayment.com".to_string());
-         assert_str_eq!(token_end_point,"/api/get_token".to_string());
-         assert_str_eq!(secure_payment_end_point,"/api/secret-pay".to_string());
-         assert_str_eq!(verification_end_point,"/api/verification".to_string());
-         assert_str_eq!(payment_status_end_point,"/api/payment-status".to_string());
          assert_str_eq!(sp_user,"sp_sandbox".to_string());
          assert_str_eq!(sp_pass,"pyyk97hu&6u6".to_string());
          assert_str_eq!(default_return_url,"https://sandbox.shurjopayment.com/response".to_string());

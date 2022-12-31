@@ -299,10 +299,10 @@ impl ShurjopayPlugin {
         sp_user:String, 
         sp_pass: String, 
         post_default_address:String,
-        token_end_point:String,
-        secure_payment_end_point:String,
-        verification_end_point:String,
-        payment_status_end_point:String,
+        // token_end_point:String,
+        // secure_payment_end_point:String,
+        // verification_end_point:String,
+        // payment_status_end_point:String,
         default_return_url:String,
         default_cancel_url:String,
     )
@@ -312,13 +312,14 @@ impl ShurjopayPlugin {
             sp_user,
             sp_pass,
             post_default_address,
-            token_end_point,
-            secure_payment_end_point,
-            verification_end_point,
-            payment_status_end_point,
+            // token_end_point,
+            // secure_payment_end_point,
+            // verification_end_point,
+            // payment_status_end_point,
             default_return_url,
             default_cancel_url,
             default_client_ip:self.get_client_ip_address().unwrap(),
+            ..Default::default()
         };
         self.config  = Some(sp_config);
     }
@@ -344,16 +345,17 @@ impl ShurjopayPlugin {
             let sp_config = SpConfig
             {
                 post_default_address: std::env::var("POST_DEFAULT_ADDRESS").unwrap(),
-                token_end_point: std::env::var("TOKEN_END_POINT").unwrap(),
-                secure_payment_end_point: std::env::var("SECURE_PAYMENT_END_POINT").unwrap(),
-                verification_end_point: std::env::var("VERIFICATION_END_POINT").unwrap(),
-                payment_status_end_point: std::env::var("PAYMENT_STATUS_END_POINT").unwrap(),
-                sp_user: std::env::var("SP_USER").unwrap(),
-                sp_pass: std::env::var("SP_PASS").unwrap(),
+                // token_end_point: std::env::var("TOKEN_END_POINT").unwrap(),
+                // secure_payment_end_point: std::env::var("SECURE_PAYMENT_END_POINT").unwrap(),
+                // verification_end_point: std::env::var("VERIFICATION_END_POINT").unwrap(),
+                // payment_status_end_point: std::env::var("PAYMENT_STATUS_END_POINT").unwrap(),
+                sp_user: std::env::var("SP_USERNAME").unwrap(),
+                sp_pass: std::env::var("SP_PASSWORD").unwrap(),
                 default_return_url: std::env::var("DEFAULT_RETURN_URL").unwrap(),
                 default_cancel_url: std::env::var("DEFAULT_CANCEL_URL").unwrap(),
                 // default_client_ip: std::env::var("DEFAULT_CLIENT_IP").unwrap(),
                 default_client_ip: ip_address ,
+                ..Default::default()
             };
     
             self.config  = Some(sp_config);

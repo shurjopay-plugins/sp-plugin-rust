@@ -1,11 +1,11 @@
 [package]
-name = "sp-plugin-rust"
+name = "shurjopay-plugin"
 version = "0.1.0"
 edition = "2021"
 authors = ["Shakil Anwar <shakil7531@gmail.com>", "Mahmudul Islam <mahmudulislam299@gmail.com>"]
 categories = ["encoding", "parser-implementations", "plugin"]
 description = "Rust plugin for for quick integration of shurjopay API"
-documentation = "https://docs.rs/sp-plugin-rust"
+documentation = "https://docs.rs/shurjopay-plugin"
 keywords = ["shurjopay", "fintech", "plugin"]
 license = "MIT"
 repository = "https://github.com/shurjopay-plugins/sp-plugin-rust"

@@ -1,12 +1,12 @@
-// #![deny(missing_docs)]
-// #![deny(missing_debug_implementations)]
-// #![cfg_attr(docsrs, feature(doc_cfg))]
-// #![cfg_attr(test, deny(warnings))]
-
-//! # Shurjopay
+//! # Shurjopay Rust Crate
 //!
-//! The `Shurjopay` crate provides a convenient way to integrate 
-//! [`Shurjopay`][shurjopay] payment gateway.
+//! Official shurjoPay Rust Crate (plugin) for merchants or service providers 
+//! to connect with shurjoPay Payment Gateway v2.1 developed 
+//! and maintained by shurjoMukhi Limited.
+//! 
+//! 
+//! The `shurjopay-plugin` crate provides a convenient way to integrate 
+//! [`Shurjopay`](https://shurjopay.com.bd/) payment gateway.
 //!
 //! It handles many of the things that most people need to do manually
 //! 
@@ -15,8 +15,6 @@
 //! - Authentication during checkout and verification of payments
 //!
 //! 
-//! [shurjopay]: crate::Shurjopay
-
 pub mod shurjopay;
 pub mod shurjopay_client;
 

@@ -9,7 +9,6 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 
-# Shurjopay Rust Crate
 Official shurjoPay Rust Crate (plugin) for merchants or service providers to connect with **shurjoPay Payment Gateway v2.1** developed and maintained by shurjoMukhi Limited.
 
 It handles many of the things that most people need to do manually

@@ -1,10 +1,10 @@
 # ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Shurjopay Rust Crate (plugin)
 
 [![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
-[![Crate](https://img.shields.io/crates/v/rand.svg)]()
-[![Book](https://img.shields.io/badge/book-master-yellow.svg)](https://github.com/shurjopay-plugins/sp-plugin-rust)
-[![API](https://img.shields.io/badge/api-master-yellow.svg)]()
-[![API](https://docs.rs/rand/badge.svg)]()
+[![Crate](https://img.shields.io/crates/v/rand.svg)](https://docs.rs/shurjopay-plugin)
+[![Book](https://img.shields.io/badge/book-master-yellow.svg)](https://github.com/shurjopay-plugins/shurjopay-plugin)
+[![API](https://img.shields.io/badge/api-master-yellow.svg)](https://docs.rs/shurjopay-plugin)
+[![API](https://docs.rs/rand/badge.svg)](https://docs.rs/shurjopay-plugin)
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)]()
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
@@ -33,12 +33,12 @@ This document is intended for the developers and technical personnel of merchant
 
 ```toml
 [dependencies]
-sp-plugin-rust = "0.1.0"
+shurjopay-plugin = "0.1.0"
 ```
 
 ### step:2  Import Crate into your project
 ```
-use sp_plugin_rust::Shurjopay::ShurjopayPlugin;
+use shurjopay_plugin::Shurjopay::ShurjopayPlugin;
 ```
 ### step:3  creating a new instance of Shurjopayplugin
 ```
@@ -59,13 +59,9 @@ in this way you need to configure .env file in this way.
 
 ```
 # .env
-SP_USER="sp_sandbox"
-SP_PASS="pyyk97hu&6u6"
+SP_USERNAME="sp_sandbox"
+SP_PASSWORD="pyyk97hu&6u6"
 POST_DEFAULT_ADDRESS="https://sandbox.shurjopayment.com"
-TOKEN_END_POINT="/api/get_token"
-SECURE_PAYMENT_END_POINT="/api/secret-pay"
-VERIFICATION_END_POINT="/api/verification"
-PAYMENT_STATUS_END_POINT="/api/payment-status"
 DEFAULT_RETURN_URL="https://sandbox.shurjopayment.com/response"
 DEFAULT_CANCEL_URL="https://sandbox.shurjopayment.com/response"
 ```
@@ -74,15 +70,11 @@ DEFAULT_CANCEL_URL="https://sandbox.shurjopayment.com/response"
 * option2: Configure plugin using this function
 ```
 sp_instance.set_all_config(
-        "sp_sandbox".to_string(),                               
-        "pyyk97hu&6u6".to_string(),
-        "https://sandbox.shurjopayment.com".to_string(),
-        "/api/get_token".to_string(),
-        "/api/secret-pay".to_string(),
-        "/api/verification".to_string(),
-        "/api/payment-status".to_string(),
-        "https://sandbox.shurjopayment.com/response".to_string(),
-        "https://sandbox.shurjopayment.com/response".to_string(),
+        "sp_sandbox".to_string(),                                   // SP_USERNAME
+        "pyyk97hu&6u6".to_string(),                                 // SP_PASSWORD
+        "https://sandbox.shurjopayment.com".to_string(),            // POST_DEFAULT_ADDRESS
+        "https://sandbox.shurjopayment.com/response".to_string(),   // DEFAULT_RETURN_URL
+        "https://sandbox.shurjopayment.com/response".to_string(),   // DEFAULT_CANCEL_URL
         );
 ```
 
@@ -96,7 +88,7 @@ let payment_req_obj = sp_instance.make_payment_request_object(
     "BDT".to_string(),              // currency
     "Mahmudul Islam".to_string(),   // customer_name
     "Dhaka".to_string(),            // customer_address
-    "01811177722".to_string(),      // customer_phone
+    "01800000000".to_string(),      // customer_phone
     "Dhaka".to_string(),            // customer_city
     "1203".to_string(),             // customer_post_code
     );

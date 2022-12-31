@@ -1,25 +1,22 @@
-![image](https://user-images.githubusercontent.com/57352037/170198396-932692aa-3354-4cf0-abc1-2b8ef43a6de3.png)
-# ShurjoPay
+# ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Shurjopay Rust Crate (plugin)
 
 [![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
 [![Crate](https://img.shields.io/crates/v/rand.svg)]()
-[![Book](https://img.shields.io/badge/book-master-yellow.svg)]()
+[![Book](https://img.shields.io/badge/book-master-yellow.svg)](https://github.com/shurjopay-plugins/sp-plugin-rust)
 [![API](https://img.shields.io/badge/api-master-yellow.svg)]()
 [![API](https://docs.rs/rand/badge.svg)]()
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)]()
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 
 # Shurjopay Rust Crate
-Official shurjoPay Rust Crate (plugin) for merchants or service providers to connect with shurjoPay Payment Gateway v2.1 developed and maintained by shurjoMukhi Limited.
+Official shurjoPay Rust Crate (plugin) for merchants or service providers to connect with **shurjoPay Payment Gateway v2.1** developed and maintained by shurjoMukhi Limited.
 
 It handles many of the things that most people need to do manually
 
 - Handles http request and request errors
 - JSON serialization and deserialization
 - Authentication during checkout and verification of payments
-
-
-### Shurjopay Rust integration steps
 
 > 📝 **NOTE** For shurjoPay live engine integration's all necessary credential will be given to merchant after subscription completed on shurjoPay gateway.
 
@@ -41,7 +38,7 @@ sp-plugin-rust = "0.1.0"
 
 ### step:2  Import Crate into your project
 ```
-use sp_plugin_rust_test::Shurjopay::ShurjopayPlugin;
+use sp_plugin_rust::Shurjopay::ShurjopayPlugin;
 ```
 ### step:3  creating a new instance of Shurjopayplugin
 ```
@@ -105,7 +102,6 @@ let payment_req_obj = sp_instance.make_payment_request_object(
     );
 ```
 
-
 ```
 let checkout_url = sp_instance.make_payment(payment_req_obj) 
 ```
@@ -122,12 +118,13 @@ if response.is_some()
 }
 ```
 
-## Sample Example
-you can download a example from the below repository for better understanding
+## References
+1. [shurjopay Plugins API documentation](https://docs.rs/sp-plugin-rust) plugin API documentation
+2. [Rust example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/rust-app-rust-plugin) showing usage of the Rust crate.
+3. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
+4. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
+5. [shurjopay Plugins](https://github.com/shurjopay-plugins) home page on github
 
-```
-https://github.com/shurjopay-plugins/sp-plugin-usage-examples
-```
 
 ## License
 This code is under the [MIT open source License](LICENSE).

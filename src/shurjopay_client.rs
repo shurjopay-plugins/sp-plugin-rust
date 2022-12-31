@@ -19,7 +19,8 @@ use reqwest::{blocking::Response, Error};
 // use reqwest::header::{HeaderMap, HeaderValue, USER_AGENT, CONTENT_TYPE};
 
 #[derive(Debug)]
-pub struct HttpResponse{
+pub struct HttpResponse
+{
     pub http_code: u16,
     pub http_body: String,
 }
@@ -28,9 +29,10 @@ pub struct HttpResponse{
 
 pub fn is_response_valid(res: Result<Response, Error>) -> Option<HttpResponse>
 {
-
-    match res {
-        Ok(_) => {
+    match res 
+    {
+        Ok(_) => 
+        {
             // println!("{:?}", "URL is valid");
             let status = res.unwrap();
             let status_code = status.status();
@@ -38,10 +40,13 @@ pub fn is_response_valid(res: Result<Response, Error>) -> Option<HttpResponse>
             let body = status.text();
             // println!("{:?}", body);
 
-            match body {
-                Ok(mgs_body) => {
+            match body 
+            {
+                Ok(mgs_body) => 
+                {
                     // mgs_body.what_is_it();
-                    let resbody = HttpResponse{
+                    let resbody = HttpResponse
+                    {
                         http_code: status_code.as_u16(),
                         http_body: mgs_body,
                     };
@@ -49,8 +54,10 @@ pub fn is_response_valid(res: Result<Response, Error>) -> Option<HttpResponse>
                     // println!("{:?}",resbody);
                     return Some(resbody);
                 },
-                Err(mgs_body2) => {
-                    let resbody = HttpResponse{
+                Err(mgs_body2) => 
+                {
+                    let resbody = HttpResponse
+                    {
                         http_code: status_code.as_u16(),
                         http_body: mgs_body2.to_string(),
                     };
@@ -58,7 +65,8 @@ pub fn is_response_valid(res: Result<Response, Error>) -> Option<HttpResponse>
                 },
             }
         },
-        Err(_error) =>   {
+        Err(_error) =>   
+        {
             return None;
         },
     };

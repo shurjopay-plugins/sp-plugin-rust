@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
 
-    use sp_plugin_rust::shurjopay::ShurjopayPlugin;
+    use shurjopay_plugin::shurjopay::ShurjopayPlugin;
     use assert_str::assert_str_eq;
     use webbrowser;
 

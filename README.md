@@ -94,18 +94,19 @@ let payment_req_obj = sp_instance.make_payment_request_object(
 ```
 
 ```
-let checkout_url = sp_instance.make_payment(payment_req_obj) 
+let checkout_url = sp_instance.make_payment(payment_req_obj); 
 ```
 
 
 ## Verify Payment
 ### step:6 to verify payment you need use this function
 ```
-let response = sp_instance.verify_payment(Some("sp63935da67dfd3".to_string()));
+let order_id = Some("sp63935da67dfd3".to_string());
+let response = sp_instance.verify_payment(order_id);
 println!("verify Payment Response:  {:?}",response);
 if response.is_some()
 {
-		println!("{:#?}", response.unwrap().clone().sp_message.unwrap());
+    println!("{:#?}", response.unwrap().clone().sp_message.unwrap());
 }
 ```
 

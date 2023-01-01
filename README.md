@@ -1,11 +1,11 @@
 # ![alt text](https://shurjopay.com.bd/dev/images/shurjoPay.png) Shurjopay Rust Crate (plugin)
 
 [![Test Status](https://github.com/rust-random/rand/workflows/Tests/badge.svg?event=push)]()
-[![Crate](https://img.shields.io/crates/v/rand.svg)](https://docs.rs/shurjopay-plugin)
+[![Crate](https://img.shields.io/crates/v/rand.svg)](https://crates.io/crates/shurjopay-plugin)
 [![Book](https://img.shields.io/badge/book-master-yellow.svg)](https://github.com/shurjopay-plugins/shurjopay-plugin)
 [![API](https://img.shields.io/badge/api-master-yellow.svg)](https://docs.rs/shurjopay-plugin)
 [![API](https://docs.rs/rand/badge.svg)](https://docs.rs/shurjopay-plugin)
-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)]()
+[![Minimum rustc version](https://img.shields.io/badge/rustc-1.51+-lightgray.svg)](https://www.rust-lang.org/)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 
@@ -54,7 +54,7 @@ sp_instance.set_config_from_env_file();
 ```
 in this way you need to configure .env file in this way.
 
-*** keep the .toml and .env file in the same directiory *** 
+**keep the .toml and .env file in the same directiory** 
 
 ```
 # .env
@@ -102,8 +102,10 @@ let checkout_url = sp_instance.make_payment(payment_req_obj);
 ### step:6 to verify payment you need use this function
 ```
 let order_id = Some("sp63935da67dfd3".to_string());
+
 let response = sp_instance.verify_payment(order_id);
 println!("verify Payment Response:  {:?}",response);
+
 if response.is_some()
 {
     println!("{:#?}", response.unwrap().clone().sp_message.unwrap());
@@ -111,7 +113,7 @@ if response.is_some()
 ```
 
 ## References
-1. [shurjopay Plugins API documentation](https://docs.rs/sp-plugin-rust) plugin API documentation
+1. [shurjoPay Rust Crate (plugin) API documentation](https://docs.rs/sp-plugin-rust) plugin API documentation
 2. [Rust example application](https://github.com/shurjopay-plugins/sp-plugin-usage-examples/tree/dev/rust-app-rust-plugin) showing usage of the Rust crate.
 3. [Sample applications and projects](https://github.com/shurjopay-plugins/sp-plugin-usage-examples) in many different languages and frameworks showing shurjopay integration.
 4. [shurjoPay Postman site](https://documenter.getpostman.com/view/6335853/U16dS8ig) illustrating the request and response flow using the sandbox system.
